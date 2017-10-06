@@ -38,7 +38,7 @@ def print_maze():
 			if c == 'A':
 				x, y = j, i;
 				xorigin, yorigin = x, y;
-				coord = Label(window, relief=RAISED, bg='red', width=3)
+				coord = Label(window, relief=RAISED, bg='blue', width=3)
 				coord.grid(row=i, column=j)
 			elif c == 'B':
 				xwin, ywin = j, i;
@@ -108,8 +108,8 @@ def key(event):
 			root = Tk()
 			root.title('Robot Comm')
 			Label(root, text='I found the exit!!', anchor=W, justify=LEFT, font='Arial 20 bold', width = 20).grid(row=0, column=0)
-			Label(root, text='Let me show you the path', font='Arial 16 bold', width = 25).grid(row=1, column=0)
-			trace()
+#			Label(root, text='Let me show you the path', font='Arial 16 bold', width = 25).grid(row=1, column=0)
+#			trace()
 			over = True
 
 #-------------------------------------------------------------------------
@@ -210,15 +210,17 @@ def moveup(x, y, bool):
 	if bool:
 		move.pop()
 		index = index - 1
+		color = 'red'
 	else:
 		move.append('u')
 		index = index + 1
+		color = 'yellow'
 	for child in window.children.values():
 		info = child.grid_info()
 		if info['row'] == (y-1) and info['column'] == x:
-			child.config(relief=RAISED, bg='red')
+			child.config(relief=RAISED, bg='blue')
 		if info['row'] == (y) and info['column'] == x:
-			child.config(relief=SUNKEN, bg='grey')
+			child.config(relief=SUNKEN, bg=color)
 	maze[y][x] = '#'
 	y = y - 1
 	return x, y
@@ -230,15 +232,17 @@ def movedown(x, y, bool):
 	if bool:
 		move.pop()
 		index = index - 1
+		color = 'red'
 	else:
 		move.append('d')
 		index = index + 1
+		color = 'yellow'
 	for child in window.children.values():
 		info = child.grid_info()
 		if info['row'] == (y) and info['column'] == x:
-			child.config(relief=SUNKEN, bg='grey')
+			child.config(relief=SUNKEN, bg=color)
 		if info['row'] == (y+1) and info['column'] == x:
-			child.config(relief=RAISED, bg='red')
+			child.config(relief=RAISED, bg='blue')
 	maze[y][x] = '#'
 	y = y + 1
 	return x, y
@@ -250,15 +254,17 @@ def moveleft(x, y, bool):
 	if bool:
 		move.pop()
 		index = index - 1
+		color = 'red'
 	else:
 		move.append('l')
 		index = index + 1
+		color = 'yellow'
 	for child in window.children.values():
 		info = child.grid_info()
 		if info['row'] == (y) and info['column'] == (x-1):
-			child.config(relief=RAISED, bg='red')
+			child.config(relief=RAISED, bg='blue')
 		if info['row'] == (y) and info['column'] == x:
-			child.config(relief=SUNKEN, bg='grey')
+			child.config(relief=SUNKEN, bg=color)
 	maze[y][x] = '#'
 	x = x - 1
 	return x, y
@@ -270,42 +276,44 @@ def moveright(x, y, bool):
 	if bool:
 		move.pop()
 		index = index - 1
+		color = 'red'
 	else:
 		move.append('r')
 		index = index + 1
+		color = 'yellow'
 	for child in window.children.values():
 		info = child.grid_info()
 		if info['row'] == (y) and info['column'] == x:
-			child.config(relief=SUNKEN, bg='grey')
+			child.config(relief=SUNKEN, bg=color)
 		if info['row'] == (y) and info['column'] == (x+1):
-			child.config(relief=RAISED, bg='red')
+			child.config(relief=RAISED, bg='blue')
 	maze[y][x] = '#'
 	x = x + 1
 	return x, y
 
 #-------------------------------------------------------------------------
 #-------------------------------------------------------------------------
-def trace():
-	global window, move, index, x, y
-	
-	print(str(len(move)) + ' moves: ')
-	print(move)
-	
-	while index > 0:
-		if move[index-1] == 'u':
-			y = y + 1
-		elif move[index-1] == 'd':
-			y = y - 1
-		elif move[index-1] == 'l':
-			x = x + 1
-		elif move[index-1] == 'r':
-			x = x - 1
-		index = index - 1
-		
-		for child in window.children.values():
-			info = child.grid_info()
-			if info['row'] == (y) and info['column'] == x:
-				child.config(bg='yellow')
+#def trace():
+#	global window, move, index, x, y
+#	
+#	print(str(len(move)) + ' moves: ')
+#	print(move)
+#	
+#	while index > 0:
+#		if move[index-1] == 'u':
+#			y = y + 1
+#		elif move[index-1] == 'd':
+#			y = y - 1
+#		elif move[index-1] == 'l':
+#			x = x + 1
+#		elif move[index-1] == 'r':
+#			x = x - 1
+#		index = index - 1
+#		
+#		for child in window.children.values():
+#			info = child.grid_info()
+#			if info['row'] == (y) and info['column'] == x:
+#				child.config(bg='yellow')
 
 main()
 mainloop()
